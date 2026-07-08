@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Disc, Eye, EyeOff, Loader2 } from "lucide-react"
-import axios from "axios"
 import { useAuth } from "../context/AuthContext"
+import axiosInstance from "../api/axiosInstance"
 
 export default function RegisterPage() {
   const [name,                 setName]                 = useState("")
@@ -35,7 +35,7 @@ export default function RegisterPage() {
     }
     setLoading(true)
     try {
-      const res = await axios.post("/api/auth/register", { name, email, phone: phone.trim(), password })
+      const res = await axiosInstance.post("/api/auth/register", { name, email, phone: phone.trim(), password })
       register(res.data)
       navigate("/")
     } catch (err) {
